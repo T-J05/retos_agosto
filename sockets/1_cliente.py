@@ -1,5 +1,7 @@
-#Configuración Básica de Sockets: Implementa un servidor de sockets básico que escuche en un puerto específico y 
-# acepte conexiones de un solo cliente. El servidor debería enviar un mensaje de bienvenida al cliente y luego cerrar la conexión.
+# Cliente Simple de Chat: 
+#Desarrolla un cliente que se conecte a un servidor de sockets y
+#permita al usuario enviar un mensaje simple a través de la terminal. 
+#Una vez enviado, el cliente debería cerrar la conexión.
 import socket
 
 s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -8,7 +10,15 @@ puerto = 5553
 
 s.connect((direccion,puerto))
 
-
-respuesta = s.recv(2000).decode("utf")
-print(respuesta)
+while True:
+    try:
+        respuesta = s.recv(2000).decode("utf-8")
+        print(respuesta)
+        mensaje = input()
+        if mensaje:
+            s.send(mensaje.encode("utf-8"))
+            s.close()
+            break
+    except Exception as e :
+        (f'Error {e}')
 

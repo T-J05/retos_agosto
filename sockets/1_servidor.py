@@ -12,8 +12,11 @@ while True:
     try:
         cliente , direccion = s.accept()
         cliente.send('hola usuario bienvenido'.encode("utf-8"))
-        cliente.close()
-        s.close()
+        respuesta = cliente.recv(2000).decode("utf-8")
+        if respuesta:
+            print(f' Desde la ip {direccion}: {respuesta}')
+            cliente.close()
+            s.close()
         break
     except:
         ("Error al conectar")
